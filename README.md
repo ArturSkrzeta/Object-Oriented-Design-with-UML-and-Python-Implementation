@@ -1,6 +1,6 @@
 <h2>Object Oriented Design with UML and Python Implementation</h2>
 
-<p><In the project I utilize two methods: OOAD and UML.</p>
+<p>In the project I utilize two methods: <b>OOAD and UML</b>.</p>
   
 <p>Due to wikipedia:</p>
 
