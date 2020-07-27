@@ -10,7 +10,7 @@
 
 <h3>Intro</h3>
 <ul>
-  <li>...</li>
+  <li>UML diagram:</li>
 </ul>
 <img src="images/diagram.jpeg">
 <h3>Demo</h3>
