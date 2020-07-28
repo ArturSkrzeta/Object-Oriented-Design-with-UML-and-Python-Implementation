@@ -1,14 +1,15 @@
-from address import Address
 
 class Person():
 
-    def __init__(self, firstName, lastName, phoneNumber, dateOfBirth, address):
+    def __init__(self, firstName, lastName, phoneNumber, dateOfBirth):
         self.firstName = firstName
         self.lastName = lastName
         self.phoneNumber = phoneNumber
         self.dateOfBirth = dateOfBirth
         self.addresses = []
 
+    def add_address(self, address):
+        from address import Address
         if isinstance(address,Address):
             self.addresses.append(address)
         elif isinstance(address, list):
@@ -18,9 +19,3 @@ class Person():
             self.addresses = address
         else:
             raise Error('Invalid Address.')
-
-    def add_address(self, address):
-        if not isinstance(address, Address):
-            raise Error('Invalid Address')
-        else:
-            self.addresses.append(address)

@@ -1,3 +1,4 @@
+
 class Address():
 
     def __init__(self, id, country, city, street, postal):
@@ -8,4 +9,4 @@ class Address():
         self.postal = postal
 
     def __repr__(self):
-        return f'Address {self.id}: {self.country}, {self.city} {self.street} {self.postal}'
+        return f"Address '{self.id}' -> {self.country}, {self.city} {self.street} {self.postal}"

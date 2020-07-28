@@ -1,9 +1,10 @@
 from person import Person
+from datetime import datetime
 
 class Employee(Person):
 
-    def __init__(self, id, firstName, lastName, phoneNumber, dateOfBirth, address, title, international, dateOfEmployment):
-        super().__init__(firstName, lastName, phoneNumber, dateOfBirth, address)
+    def __init__(self, id, firstName, lastName, phoneNumber, dateOfBirth, title, international, dateOfEmployment):
+        super().__init__(firstName, lastName, phoneNumber, dateOfBirth)
         self.id = id
         self.title = title
         self.international = False
@@ -13,10 +14,11 @@ class Employee(Person):
     def __repr__(self):
         return f'Employee: {self.firstName} {self.lastName} - {self.title} - {self.addresses}'
 
-    def add_enrollment(self,enrollment):
-        if not isinstance(self, enrollment):
+    def add_enrollment(self,enroll):
+        from enrollment import Enrollment
+        if not isinstance(enroll, Enrollment):
             raise Error("Invalid Enrollment")
-        self.enrolled.append(enrollment)
+        self.enrolled.append(enroll)
 
     def is_on_probation(self):
         return False
