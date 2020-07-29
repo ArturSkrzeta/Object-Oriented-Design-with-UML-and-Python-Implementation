@@ -116,11 +116,21 @@ def associate_address_to_person(persons, addresses):
 
 def associate_trainer_to_course(courses, trainers):
     for c in courses:
-        if c.id == 'cou1': c.add_trainer(trainers[0])
-        if c.id == 'cou2': c.add_trainer(trainers[0])
-        if c.id == 'cou3': c.add_trainer(trainers[0])
-        if c.id == 'cou4': c.add_trainer(trainers[1])
-        if c.id == 'cou5': c.add_trainer(trainers[1])
+        if c.id == 'cou1':
+            c.add_trainer(trainers[0])
+            trainers[0].add_course(c)
+        if c.id == 'cou2':
+            c.add_trainer(trainers[0])
+            trainers[0].add_course(c)
+        if c.id == 'cou3':
+            c.add_trainer(trainers[0])
+            trainers[0].add_course(c)
+        if c.id == 'cou4':
+            c.add_trainer(trainers[1])
+            trainers[1].add_course(c)
+        if c.id == 'cou5':
+            c.add_trainer(trainers[1])
+            trainers[1].add_course(c)
 
 def make_enrollment(employee, course):
     en = Enrollment(employee, course)
@@ -133,11 +143,16 @@ def print_objects(list):
 
 def connect_db_and_create_tables():
     global conn, c
-    from queries import qry_create_address_tbl, qry_create_employee_tbl
-    queries = [qry_create_address_tbl, qry_create_employee_tbl]
-
+    from queries import qry_create_address_tbl, qry_create_employee_tbl, qry_create_trainer_tbl, qry_create_courses_tbl
     conn = sqlite3.connect(':memory:')
     c = conn.cursor()
+
+    queries = [
+                qry_create_address_tbl,
+                qry_create_employee_tbl,
+                qry_create_trainer_tbl,
+                qry_create_courses_tbl
+    ]
 
     for query in queries:
         c.execute(query)
@@ -159,16 +174,38 @@ def insert_values_into_tblEmployee(employees):
                                                 "','" + e.lastName +
                                                 "','" + e.phoneNumber +
                                                 "','" + str(e.dateOfBirth) +
-                                                "','" + e.addresses[0].city if len(e.addresses) == 1 else '; '.join(e.addresses) +
+                                                "','" + e.convert_addresses_into_string() +
                                                 "','" + e.title +
                                                 "','" + str(e.international) +
                                                 "','" + str(e.dateOfEmployment) +
-                                                "','" + str(e.enrolled) +
+                                                "')")
+        conn.commit()
+
+def insert_values_into_tblTrainer(trainers):
+    for t in trainers:
+        c.execute("INSERT INTO tblTrainer VALUES ('" + t.id +
+                                                "','" + t.firstName +
+                                                "','" + t.lastName +
+                                                "','" + t.phoneNumber +
+                                                "','" + str(t.dateOfBirth) +
+                                                "','" + t.convert_addresses_into_string() +
+                                                "','" + t.domain +
+                                                "','" + str(t.salary) +
+                                                "','" + t.convert_courses_into_string() +
+                                                "','" + str(t.got_raise) +
+                                                "')")
+        conn.commit()
+
+def insert_values_into_tblCourse(courses):
+    for co in courses:
+        c.execute("INSERT INTO tblCourse VALUES ('" + co.id +
+                                                "','" + co.code +
+                                                "','" + str(co.min) +
+                                                "','" + str(co.max) +
                                                 "')")
         conn.commit()
 
 def main():
-
     # creating objects
     addresses = create_objects(dict_address)
     employees = create_objects(dict_employee)
@@ -185,15 +222,17 @@ def main():
     connect_db_and_create_tables()
     insert_values_into_tblAddress(addresses)
     insert_values_into_tblEmployee(employees)
+    insert_values_into_tblTrainer(trainers)
+    insert_values_into_tblCourse(courses)
 
-    # selecting data from db
-    c.execute("SELECT * FROM tblAddress")
+    # # selecting data from db
+    c.execute("SELECT * FROM tblCourse")
     print(c.fetchall())
 
 
-    # terminating connection
-    conn.close()
-
+    # # terminating connection
+    # conn.close()
+    #
 
 
 

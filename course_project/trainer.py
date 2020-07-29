@@ -23,3 +23,14 @@ class Trainer(Person):
             raise Error('Invalid Course')
         else:
             self.courses.append(course)
+
+    def convert_courses_into_string(self):
+        if len(self.courses) != 0:
+            str_courses = ''
+            counter = 0
+            for course in self.courses:
+                str_ = course.name + ' ' + course.code + ';'
+                str_courses += str_
+                counter +1
+
+            return str_courses

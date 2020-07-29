@@ -20,6 +20,15 @@ class Employee(Person):
             raise Error("Invalid Enrollment")
         self.enrolled.append(enroll)
 
+    # def convert_enrolled_into_string(self):
+    #     if len(self.enrolled) != 0:
+    #         str_enrolled= ''
+    #         for enroll in self.enrolled:
+    #             str_ = enroll.country + ' ' + enroll.city + ' ' + enroll.street + ' ' + enroll.postal + '; '
+    #             str_enrolled += str_
+    #
+    #         return str_enrolled
+
     def is_on_probation(self):
         return False
 

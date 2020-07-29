@@ -22,4 +22,12 @@ class Person():
 
 
     def convert_addresses_into_string(self):
-        
+        if len(self.addresses) != 0:
+            str_addresses = ''
+            counter = 0
+            for address in self.addresses:
+                str_ = address.country + ' ' + address.city + ' ' + address.street + ' ' + address.postal + ';'
+                str_addresses += str_
+                counter +1
+
+            return str_addresses
