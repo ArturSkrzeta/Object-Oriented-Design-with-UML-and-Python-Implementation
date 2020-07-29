@@ -5,6 +5,8 @@ from course import Course
 from enrollment import Enrollment
 from datetime import datetime
 
+import sqlite3
+
 dict_address = {
     'addresses': {
                     'adr1': ['Poland', 'Krosno', 'Pilsudskiego 3', '20-132'],
@@ -129,20 +131,72 @@ def print_objects(list):
     for item in list:
         print(item)
 
+def connect_db_and_create_tables():
+    global conn, c
+    from queries import qry_create_address_tbl, qry_create_employee_tbl
+    queries = [qry_create_address_tbl, qry_create_employee_tbl]
+
+    conn = sqlite3.connect(':memory:')
+    c = conn.cursor()
+
+    for query in queries:
+        c.execute(query)
+        conn.commit()
+
+def insert_values_into_tblAddress(addresses):
+    for address in addresses:
+        c.execute("INSERT INTO tblAddress VALUES ('" + address.id +
+                                                "','" + address.country +
+                                                "','" + address.city +
+                                                "','" + address.street +
+                                                "','" + address.postal + "')")
+        conn.commit()
+
+def insert_values_into_tblEmployee(employees):
+    for e in employees:
+        c.execute("INSERT INTO tblEmployee VALUES ('" + e.id +
+                                                "','" + e.firstName +
+                                                "','" + e.lastName +
+                                                "','" + e.phoneNumber +
+                                                "','" + str(e.dateOfBirth) +
+                                                "','" + e.addresses[0].city if len(e.addresses) == 1 else '; '.join(e.addresses) +
+                                                "','" + e.title +
+                                                "','" + str(e.international) +
+                                                "','" + str(e.dateOfEmployment) +
+                                                "','" + str(e.enrolled) +
+                                                "')")
+        conn.commit()
+
 def main():
 
+    # creating objects
     addresses = create_objects(dict_address)
     employees = create_objects(dict_employee)
     trainers = create_objects(dict_trainer)
     courses = create_objects(dict_course)
 
+    # making associations
     associate_address_to_person(employees, addresses)
     associate_address_to_person(trainers, addresses)
     associate_trainer_to_course(courses, trainers)
-
     make_enrollment(employees[0],courses[0])
 
-    print(employees[0].enrolled[0])
+    # objects --> db
+    connect_db_and_create_tables()
+    insert_values_into_tblAddress(addresses)
+    insert_values_into_tblEmployee(employees)
+
+    # selecting data from db
+    c.execute("SELECT * FROM tblAddress")
+    print(c.fetchall())
+
+
+    # terminating connection
+    conn.close()
+
+
+
+
 
 if __name__ == "__main__":
     main()

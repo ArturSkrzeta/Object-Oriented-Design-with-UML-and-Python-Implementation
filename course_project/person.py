@@ -19,3 +19,7 @@ class Person():
             self.addresses = address
         else:
             raise Error('Invalid Address.')
+
+
+    def convert_addresses_into_string(self):
+        
