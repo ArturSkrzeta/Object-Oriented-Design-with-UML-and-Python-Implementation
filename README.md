@@ -8,13 +8,17 @@
 
 <p><i><b>Unified Modeling Language (UML)</b> is a general-purpose, developmental, modeling language in the field of software engineering that is intended to provide a standard way to visualize the design of a system.</i></p>
 
-<h3>Intro</h3>
+<h3>Demo</h3>
+<ul>
+  <li>Step 1st: preparing UML diagram that shows all of the classes along with associations bettwen them.</li>
+  <li>Step 2nd: reflecting UML diagram with Python code.</li>
+  <li>Step 3rd: creating class instances with in-memory data.</li>
+  <li>Step 4th: feeding instances into SQL database (Python sqlite3).</li>
+</ul>
+
+<h3>UML Diagram</h3>
 <ul>
   <li>UML diagram:</li>
 </ul>
 <img src="images/diagram.jpeg">
-<h3>Demo</h3>
-<ul>
-  <li>...</li>
-  <li>...</li>
-</ul>
+
