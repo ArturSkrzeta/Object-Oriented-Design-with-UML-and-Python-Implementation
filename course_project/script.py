@@ -136,6 +136,7 @@ def make_enrollment(employee, course):
     en = Enrollment(employee, course)
     employee.add_enrollment(en)
     course.add_enrollment(en)
+    return en
 
 def print_objects(list):
     for item in list:
@@ -143,7 +144,7 @@ def print_objects(list):
 
 def connect_db_and_create_tables():
     global conn, c
-    from queries import qry_create_address_tbl, qry_create_employee_tbl, qry_create_trainer_tbl, qry_create_courses_tbl
+    from queries import qry_create_address_tbl, qry_create_employee_tbl, qry_create_trainer_tbl, qry_create_courses_tbl, qry_create_enrollment_tbl
     conn = sqlite3.connect(':memory:')
     c = conn.cursor()
 
@@ -151,7 +152,8 @@ def connect_db_and_create_tables():
                 qry_create_address_tbl,
                 qry_create_employee_tbl,
                 qry_create_trainer_tbl,
-                qry_create_courses_tbl
+                qry_create_courses_tbl,
+                qry_create_enrollment_tbl
     ]
 
     for query in queries:
@@ -205,7 +207,21 @@ def insert_values_into_tblCourse(courses):
                                                 "')")
         conn.commit()
 
+def insert_values_into_tblEndorsement(enrollments):
+    for e in enrollments:
+        c.execute("INSERT INTO tblEnrollment VALUES ('" + e.employee.id +
+                                                "','" + e.course.code +
+                                                "')")
+        conn.commit()
+
+def select_data_from_db(tbl_name):
+    c.execute("SELECT * FROM " + tbl_name)
+    data_collection = c.fetchall()
+    for data in data_collection:
+        print(data)
+
 def main():
+
     # creating objects
     addresses = create_objects(dict_address)
     employees = create_objects(dict_employee)
@@ -216,7 +232,11 @@ def main():
     associate_address_to_person(employees, addresses)
     associate_address_to_person(trainers, addresses)
     associate_trainer_to_course(courses, trainers)
-    make_enrollment(employees[0],courses[0])
+
+    global enrollments
+    enrollments = []
+    enrollments.append(make_enrollment(employees[0],courses[0]))
+    enrollments.append(make_enrollment(employees[1],courses[3]))
 
     # objects --> db
     connect_db_and_create_tables()
@@ -224,17 +244,16 @@ def main():
     insert_values_into_tblEmployee(employees)
     insert_values_into_tblTrainer(trainers)
     insert_values_into_tblCourse(courses)
+    insert_values_into_tblEndorsement(enrollments)
 
     # # selecting data from db
-    c.execute("SELECT * FROM tblCourse")
-    print(c.fetchall())
+    tables = ['tblAddress', 'tblEmployee', 'tblTrainer', 'tblCourse', 'tblEnrollment']
+    for table in tables:
+        select_data_from_db(table)
+        print()
 
-
-    # # terminating connection
-    # conn.close()
-    #
-
-
+    # terminating connection
+    conn.close()
 
 
 if __name__ == "__main__":
