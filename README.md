@@ -16,7 +16,7 @@
       <li>Employee class inherits from parent class: Person</li>
       <li>Trainer class inherits from parent class: Person</li>
       <li>Association: Trainer - Course (one to many relationship)</li>
-      <li>Association: Employee - COurse (many to many relationship with helper Enrollment table)</li>
+      <li>Association: Employee - Course (many to many relationship with helper Enrollment table)</li>
     </ul>
   <li>Step 2nd: reflecting UML diagram with Python code.</li>
   <li>Step 3rd: creating class instances with in-memory data.</li>
