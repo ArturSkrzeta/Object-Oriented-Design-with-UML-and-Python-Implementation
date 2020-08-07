@@ -11,6 +11,10 @@
 <h3>Demo</h3>
 <ul>
   <li>Step 1st: preparing UML diagram that shows all of the classes along with associations bettwen them.</li>
+    <ul>
+      <li>Employee class inherits from parent class: Person</li>
+      <li>Trainer class inherits from parent class: Person</li>
+    </ul>
   <li>Step 2nd: reflecting UML diagram with Python code.</li>
   <li>Step 3rd: creating class instances with in-memory data.</li>
   <li>Step 4th: feeding instances into SQL database (Python sqlite3).</li>
