@@ -12,6 +12,7 @@
 <ul>
   <li>Step 1st: preparing UML diagram that shows all of the classes along with associations bettwen them.</li>
     <ul>
+      <li>Establishin association between Person and Address: instance of Person type can be associated with many instances of Address type (one to many relationship)</li>
       <li>Employee class inherits from parent class: Person</li>
       <li>Trainer class inherits from parent class: Person</li>
     </ul>
