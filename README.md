@@ -10,6 +10,7 @@
 
 <h3>Demo</h3>
 <ul>
+  <img src="images/uml.JPG">
   <li>Step 1st: preparing UML diagram that shows all of the classes along with associations bettwen them.</li>
     <ul>
       <li>Association: instance of Person type can be associated with many instances of Address type (one to many relationship)</li>
