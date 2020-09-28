@@ -10,7 +10,9 @@
 
 <h3>Demo</h3>
 <ul>
+  <br>
   <img src="images/uml.JPG">
+  <br>
   <br>
   <li>Step 1st: preparing UML diagram that shows all of the classes along with associations bettwen them.</li>
     <ul>
